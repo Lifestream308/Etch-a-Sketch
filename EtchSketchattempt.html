@@ -16,10 +16,26 @@
         button {margin: 1rem 50%; transform: translate(-50%); min-width: max-content;}
 
         #divContainer {
-            width: 30rem;
-            height: 30rem;
-            background-color: turquoise;
+            width: 32rem;
+            height: 32rem;
+            background-color: rgb(172, 174, 255);
             margin: 0 auto;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+        }
+
+        #divContainer div {
+            width: 2rem;
+            height: 2rem;
+            background-color: lightgray;
+            margin: 0;
+            padding: 0;
+        }
+
+        #divContainer div:hover {
+            background-color: rgb(0, 0, 0);
         }
 
 
@@ -29,13 +45,21 @@
 <body>
     <h1>Etch Sketch Attempt</h1>
 
-    <button onclick="addDiv()">Append Div Here</button>
+    <button onclick="repeat()">Append Div Here</button>
 
     <div id="divContainer"></div>
 
     <script>
         function addDiv() {
-            
+            var newDiv = document.createElement("div");
+            var container = document.getElementById("divContainer");
+            container.appendChild(newDiv);
+            // document.getElementById("divContainer").appendChild(newDiv);
+        }
+        function repeat() {
+            for (let i = 0; i < 16; i++) {
+                addDiv()
+            }
         }
 
 
