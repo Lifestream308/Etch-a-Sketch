@@ -11,7 +11,8 @@
 
         body {width: 100%; height: 100%; margin: 0; padding: 0;}
 
-        h1 {text-align: center;}
+        h1 {text-align: center; padding: 0; margin: .1rem;}
+        h3{text-align: center; padding: 0; margin: .1rem;}
 
         /* This div contains the buttons that onclick will call functions */
         #btnContainer {
@@ -40,6 +41,7 @@
             background-color: lightgray;
             margin: 0;
             padding: 0;
+            border: 1px solid black;
         }
         #divContainer div:hover {
             background-color: rgb(0, 0, 0);
@@ -49,6 +51,8 @@
 </head>
 <body>
     <h1>Etch-a-Sketch</h1>
+
+    <h3>Add some Divs, then hover over them!</h3>
 
     <!-- Contains the onclick buttons -->
     <div id="btnContainer">
@@ -62,33 +66,35 @@
     <!-- Scripts start here -->
     <script>
         // addDiv function adds a single div to the sandbox. This will be called by repeat function
-        var container = document.getElementById("divContainer");
+        
         function addDiv() {
+            var container = document.getElementById("divContainer");
             var newDiv = document.createElement("div");
             container.appendChild(newDiv);
         }
-
+        
         // repeat function carries out addDiv function. var counter was added to prevent overflow on 
         // sandbox. I manually checked how many times we can add divs before overflowing the page
         var counter = 0
+
         function repeat() {
             if (counter < 8) {
                 counter++
-                for (let i = 0; i < 32; i++) {
+                for (let i = 0; i < 32; i++) {   // i < 32 means 32 divs will be added
                     addDiv()
             }
         }
     }
-    // This is to reset the sandbox and the counter. Not working at the moment
+    // This is to reset the sandbox and the counter variable
         function replace() {
+            var container = document.getElementById("divContainer");
             var clone = container.cloneNode(false);
             var bodyElement = document.querySelector("body")
             counter = 0
+            container.remove();
             bodyElement.appendChild(clone);
             clone.id = "divContainer";
-            container.remove();
         }
-
 
     </script>
 </body>
