@@ -4,17 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Etch Sketch</title>
+    <title>Etch-a-Sketch</title>
 
     <style>
         * {box-sizing: border-box;}
 
         body {width: 100%; height: 100%; margin: 0; padding: 0;}
 
-        h1 {text-align: center;}
+        h1 {text-align: center; padding: 0; margin: .1rem;}
+        h3{text-align: center; padding: 0; margin: .1rem;}
 
-        button {margin: 1rem 50%; transform: translate(-50%); min-width: max-content;}
+        /* This div contains the buttons that onclick will call functions */
+        #btnContainer {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        button {margin: 1rem; min-width: max-content;}
 
+        /* This is the main Sandbox div that will contain the smaller Javascript divs */
         #divContainer {
             width: 32rem;
             height: 32rem;
@@ -26,44 +34,67 @@
             align-content: flex-start;
         }
 
+        /* These will be the smaller Javascript divs that are created by functions */
         #divContainer div {
             width: 2rem;
             height: 2rem;
             background-color: lightgray;
             margin: 0;
             padding: 0;
+            border: 1px solid black;
         }
-
         #divContainer div:hover {
             background-color: rgb(0, 0, 0);
         }
-
-
     </style>
 
 </head>
 <body>
-    <h1>Etch Sketch Attempt</h1>
+    <h1>Etch-a-Sketch</h1>
 
-    <button onclick="repeat()">Append Div Here</button>
+    <h3>Add some Divs, then hover over them!</h3>
 
+    <!-- Contains the onclick buttons -->
+    <div id="btnContainer">
+        <button onclick="repeat()">Append Div Here</button>
+        <button onclick="replace()">Reset Sandbox</button>
+    </div>
+
+    <!-- This is the main sandbox div that will contain smaller divs -->
     <div id="divContainer"></div>
 
+    <!-- Scripts start here -->
     <script>
+        // addDiv function adds a single div to the sandbox. This will be called by repeat function
+        
         function addDiv() {
-            var newDiv = document.createElement("div");
             var container = document.getElementById("divContainer");
+            var newDiv = document.createElement("div");
             container.appendChild(newDiv);
-            // document.getElementById("divContainer").appendChild(newDiv);
         }
+        
+        // repeat function carries out addDiv function. var counter was added to prevent overflow on 
+        // sandbox. I manually checked how many times we can add divs before overflowing the page
+        var counter = 0
+
         function repeat() {
-            for (let i = 0; i < 16; i++) {
-                addDiv()
+            if (counter < 8) {
+                counter++
+                for (let i = 0; i < 32; i++) {   // i < 32 means 32 divs will be added
+                    addDiv()
             }
         }
-
-
-
+    }
+    // This is to reset the sandbox and the counter variable
+        function replace() {
+            var container = document.getElementById("divContainer");
+            var clone = container.cloneNode(false);
+            var bodyElement = document.querySelector("body")
+            counter = 0
+            container.remove();
+            bodyElement.appendChild(clone);
+            clone.id = "divContainer";
+        }
 
     </script>
 </body>
